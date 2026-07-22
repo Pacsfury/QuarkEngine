@@ -63,5 +63,3 @@ int main() {
 
     return 0;
 }
-
-//cl /EHsc /std:c++20 src/main.cpp /I"C:\Users\marsa\OneDrive\Documents\libraries\SFML-3.1.0-windows-vc17-64-bit\SFML-3.1.0\include" /link /LIBPATH:"C:\Users\marsa\OneDrive\Documents\libraries\SFML-3.1.0-windows-vc17-64-bit\SFML-3.1.0\lib" sfml-graphics.lib sfml-window.lib sfml-system.lib ; ./main
