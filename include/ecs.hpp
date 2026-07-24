@@ -4,6 +4,7 @@
 #include <vector>
 #include <string>
 #include <optional>
+#include <type_traits>
 
 namespace Components {
     struct Position {
@@ -40,5 +41,30 @@ public:
 
     size_t createEntity();
 
-    void addCompontentToEntity(size_t entity, const std::string& component, const Args& args);
+    template <typename T>
+    void addCompontentToEntity(size_t entity, const Args& args);
 };
+
+template <>
+inline void Registry::addCompontentToEntity<Components::Position>(size_t entity, const Registry::Args& args) {
+    if (positionComponent.size() <= entity) {
+        positionComponent.resize(entity + 1);
+    }
+    positionComponent[entity] = args.position;
+}
+
+template <>
+inline void Registry::addCompontentToEntity<Components::Velocity>(size_t entity, const Registry::Args& args) {
+    if (velocityComponent.size() <= entity) {
+        velocityComponent.resize(entity + 1);
+    }
+    velocityComponent[entity] = args.velocity;
+}
+
+template <>
+inline void Registry::addCompontentToEntity<Components::Sprite::Rectangle>(size_t entity, const Registry::Args& args) {
+    if (rectangleComponent.size() <= entity) {
+        rectangleComponent.resize(entity + 1);
+    }
+    rectangleComponent[entity] = args.rectangle;
+}

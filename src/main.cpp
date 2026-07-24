@@ -20,8 +20,8 @@ int main() {
     args.rectangle.rect.setOrigin(sf::Vector2f(25.0f, 25.0f));
     args.rectangle.rect.setPosition(sf::Vector2f(args.position.x, args.position.y));
 
-    Ecs.addCompontentToEntity(player, "Components::Position", args);
-    Ecs.addCompontentToEntity(player, "Components::Sprite::Rectangle", args);
+    Ecs.addCompontentToEntity<Components::Position>(player, args);
+    Ecs.addCompontentToEntity<Components::Sprite::Rectangle>(player, args);
 
     while (window.isOpen()) {
         float dt = clock.restart().asSeconds();
