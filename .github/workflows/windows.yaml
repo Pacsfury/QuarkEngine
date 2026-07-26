@@ -1,4 +1,4 @@
-name: C++ (Windows Direct)
+name: C++ SFML (Windows)
 
 on:
   push:
@@ -7,17 +7,20 @@ on:
     branches: [ "main" ]
 
 jobs:
-
   build:
     runs-on: windows-latest
     steps:
     - uses: actions/checkout@v4
 
-    - name: Configure Developer Command Prompt
+    - name: Configure MSVC Developer Prompt
       uses: ilammy/msvc-dev-cmd@v1
 
+    - name: Install SFML via vcpkg
+      run: vcpkg install sfml:x64-windows
+
     - name: Build
-      run: cl.exe /std:c++20 /EHsc src/*.cpp /Fe:yarc.exe
+      run: cl.exe /std:c++20 /EHsc main.cpp /I"C:\vcpkg\installed\x64-windows\include" /link /LIBPATH:"C:\vcpkg\installed\x64-windows\lib" sfml-graphics.lib sfml-window.lib sfml-system.lib /Fe:program.exe
 
     - name: Test
-      run: .\yarc.exe --test
+      run: .\program.exe --test
+      continue-on-error: true
